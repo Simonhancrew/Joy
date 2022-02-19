@@ -1,6 +1,6 @@
 #include<vector>
 using namespace std;
-
+#if 0
 class Solution {
 public:
     vector<int> pancakeSort(vector<int>& A) {
@@ -31,5 +31,28 @@ public:
             }
         }
         return result;
+    }
+};
+#endif
+/*
+    每次找到最大的，反转到头部然后翻转到相应位置
+    如果已经在最佳位置就什么都不做
+*/
+class Solution {
+public:
+    vector<int> pancakeSort(vector<int>& arr) {
+        vector<int> res;
+        int n = arr.size();
+        for(int i = n - 1;i >= 0;i--){
+            int mx = 0;
+            for(int j = 0;j <= i;j++) 
+                if(arr[j] > arr[mx]) mx = j;
+            if(mx == i) continue;
+            reverse(arr.begin(),arr.begin() + mx + 1);
+            res.push_back(mx + 1);
+            reverse(arr.begin(),arr.begin() + i + 1);
+            res.push_back(i + 1);
+        }
+        return res;
     }
 };
