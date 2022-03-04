@@ -24,12 +24,19 @@ public:
     }
 };
 #endif
+#include <stack>
+#include <vector>
+using namespace std;
 /*
-    单调栈，总计就是sumMax - sumMin
+    转化一下题意，就是所有区间最大值的和减去区间最小值的和
+    可以用一个单调栈来做统计，总计就是sumMax - sumMin
     算出每个位置的贡献就可以了，每个位置的lmx,rmx,lmn,rmn
     lmn,rmn:左侧和右侧最近的比它小的数的下标
     rmx,rmn:左侧和右侧最近的比它大的数的下标
     最后一个乘法原理结合贡献的区域就可以了
+    值得注意的是这里一个让最大值最小值唯一的方式：
+        逻辑定义nums[i] == nums[j]的时候，i < j
+        则nums[i] < nums[j]
 */
 class Solution
 {
