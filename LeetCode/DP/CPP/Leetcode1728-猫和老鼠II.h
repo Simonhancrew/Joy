@@ -1,4 +1,4 @@
-#define MAXSETP 68
+#define MAXSETP 128
 int f[8][8][8][8][MAXSETP];
 int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};
 class Solution
@@ -15,7 +15,7 @@ public:
         if (v != -1)
             return v;
         if (cnt & 1)
-        { // cat first
+        { // mouse first
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j <= cj; j++)
