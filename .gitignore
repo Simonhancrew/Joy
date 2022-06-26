@@ -38,3 +38,6 @@
 *.exe
 *.out
 *.app
+
+# Some Auto gen file
+.DS_Store
