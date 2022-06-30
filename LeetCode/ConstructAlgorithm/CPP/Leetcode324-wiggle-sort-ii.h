@@ -16,9 +16,9 @@ public:
             if (A(i) > mid)
                 swap(A(i++), A(j++));
             else if (A(i) < mid)
-                swap(A(i++), A(k--));
+                swap(A(i), A(k--));
             else
-                j++;
+                i++;
         }
     }
 };
