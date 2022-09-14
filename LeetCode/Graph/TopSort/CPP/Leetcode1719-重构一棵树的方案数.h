@@ -14,45 +14,45 @@ using namespace std;
 */
 
 class Solution {
-public:
-    int checkWays(vector<vector<int>>& pairs) {
-        unordered_map<int,unordered_set<int>> adj;
-        for(auto &p : pairs){
-            adj[p[0]].insert(p[1]);
-            adj[p[1]].insert(p[0]);
-        }
-        // 找根节点，一定是n - 1的，和其余的都有关系
-        int root = -1;
-        for(auto &[node,nei] : adj){
-            if(nei.size() == adj.size() - 1) {
-                root = node;
-                break;
-            }
-        }
-        if(root == -1) return 0;
-        // 尝试构造树，看看合法性
-        int res = 1;
-        // 找到祖先点中最小deg的节点，父节点
-        for(auto &[node,nei] : adj) {
-            if(node == root) continue;
-            int curD = nei.size();
-            int parent = -1;
-            int paD = INT_MAX;
-            for(auto &p : nei) {
-                if(adj[p].size() < paD && adj[p].size() >= curD){
-                    parent = p;
-                    paD = adj[p].size();
-                }
-            }
-            if(parent == -1) return 0;
-
-            // parent应该是完全包含cur node的全部邻居的
-            for(auto &ne : nei) {
-                if(ne == parent) continue;
-                if(!adj[parent].count(ne)) return 0;
-            }
-            if(paD == curD) res = 2;
-        }
-        return res;
+ public:
+  int checkWays(vector<vector<int>> &pairs) {
+    unordered_map<int, unordered_set<int>> adj;
+    for (auto &p : pairs) {
+      adj[p[0]].insert(p[1]);
+      adj[p[1]].insert(p[0]);
     }
+    // 找根节点，一定是n - 1的，和其余的都有关系
+    int root = -1;
+    for (auto &[node, nei] : adj) {
+      if (nei.size() == adj.size() - 1) {
+        root = node;
+        break;
+      }
+    }
+    if (root == -1) return 0;
+    // 尝试构造树，看看合法性
+    int res = 1;
+    // 找到祖先点中最小deg的节点，父节点
+    for (auto &[node, nei] : adj) {
+      if (node == root) continue;
+      int curD = nei.size();
+      int parent = -1;
+      int paD = INT_MAX;
+      for (auto &p : nei) {
+        if (adj[p].size() < paD && adj[p].size() >= curD) {
+          parent = p;
+          paD = adj[p].size();
+        }
+      }
+      if (parent == -1) return 0;
+
+      // parent应该是完全包含cur node的全部邻居的
+      for (auto &ne : nei) {
+        if (ne == parent) continue;
+        if (!adj[parent].count(ne)) return 0;
+      }
+      if (paD == curD) res = 2;
+    }
+    return res;
+  }
 };

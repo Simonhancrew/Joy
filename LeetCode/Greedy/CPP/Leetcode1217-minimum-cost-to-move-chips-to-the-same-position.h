@@ -2,7 +2,7 @@
     greedy:看每个位置奇偶性，两个步骤中只有移一位才改变奇偶性
 */
 class Solution {
-public:
+ public:
   int minCostToMoveChips(vector<int> &position) {
     int odd = 0, even = 0;
     for (auto p : position) {
@@ -11,8 +11,7 @@ public:
       else
         even++;
     }
-    if (odd == 0 || even == 0)
-      return 0;
+    if (odd == 0 || even == 0) return 0;
     return min(odd, even);
   }
 };

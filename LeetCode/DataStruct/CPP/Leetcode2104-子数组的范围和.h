@@ -2,26 +2,22 @@
 /*
     数据范围1e3，直接暴力枚举
 */
-class Solution
-{
-public:
-    typedef long long LL;
-    long long subArrayRanges(vector<int> &nums)
-    {
-        LL res = 0;
-        int n = nums.size();
-        for (int i = 0; i < n; i++)
-        {
-            int mn = nums[i], mx = nums[i];
-            for (int j = i + 1; j < n; j++)
-            {
-                mn = min(nums[j], mn);
-                mx = max(nums[j], mx);
-                res += mx - mn;
-            }
-        }
-        return res;
+class Solution {
+ public:
+  typedef long long LL;
+  long long subArrayRanges(vector<int> &nums) {
+    LL res = 0;
+    int n = nums.size();
+    for (int i = 0; i < n; i++) {
+      int mn = nums[i], mx = nums[i];
+      for (int j = i + 1; j < n; j++) {
+        mn = min(nums[j], mn);
+        mx = max(nums[j], mx);
+        res += mx - mn;
+      }
     }
+    return res;
+  }
 };
 #endif
 #include <stack>
@@ -38,54 +34,45 @@ using namespace std;
         逻辑定义nums[i] == nums[j]的时候，i < j
         则nums[i] < nums[j]
 */
-class Solution
-{
-public:
-    typedef long long LL;
-    long long subArrayRanges(vector<int> &nums)
-    {
-        int n = nums.size();
-        vector<int> lmx(n), lmn(n), rmx(n), rmn(n);
-        stack<int> minstk, maxstk;
-        for (int i = 0; i < n; i++)
-        {
-            while (minstk.size() && nums[minstk.top()] > nums[i])
-            {
-                minstk.pop();
-            }
-            lmn[i] = minstk.empty() ? -1 : minstk.top();
-            minstk.push(i);
+class Solution {
+ public:
+  typedef long long LL;
+  long long subArrayRanges(vector<int> &nums) {
+    int n = nums.size();
+    vector<int> lmx(n), lmn(n), rmx(n), rmn(n);
+    stack<int> minstk, maxstk;
+    for (int i = 0; i < n; i++) {
+      while (minstk.size() && nums[minstk.top()] > nums[i]) {
+        minstk.pop();
+      }
+      lmn[i] = minstk.empty() ? -1 : minstk.top();
+      minstk.push(i);
 
-            while (maxstk.size() && nums[maxstk.top()] <= nums[i])
-            {
-                maxstk.pop();
-            }
-            lmx[i] = maxstk.empty() ? -1 : maxstk.top();
-            maxstk.push(i);
-        }
-        minstk = stack<int>(), maxstk = stack<int>();
-        for (int i = n - 1; i >= 0; i--)
-        {
-            while (minstk.size() && nums[minstk.top()] >= nums[i])
-            {
-                minstk.pop();
-            }
-            rmn[i] = minstk.empty() ? n : minstk.top();
-            minstk.push(i);
-
-            while (maxstk.size() && nums[maxstk.top()] < nums[i])
-            {
-                maxstk.pop();
-            }
-            rmx[i] = maxstk.empty() ? n : maxstk.top();
-            maxstk.push(i);
-        }
-        LL mxsum = 0, mnsum = 0;
-        for (int i = 0; i < n; i++)
-        {
-            mxsum += (LL)(rmx[i] - i) * (i - lmx[i]) * nums[i];
-            mnsum += (LL)(rmn[i] - i) * (i - lmn[i]) * nums[i];
-        }
-        return mxsum - mnsum;
+      while (maxstk.size() && nums[maxstk.top()] <= nums[i]) {
+        maxstk.pop();
+      }
+      lmx[i] = maxstk.empty() ? -1 : maxstk.top();
+      maxstk.push(i);
     }
+    minstk = stack<int>(), maxstk = stack<int>();
+    for (int i = n - 1; i >= 0; i--) {
+      while (minstk.size() && nums[minstk.top()] >= nums[i]) {
+        minstk.pop();
+      }
+      rmn[i] = minstk.empty() ? n : minstk.top();
+      minstk.push(i);
+
+      while (maxstk.size() && nums[maxstk.top()] < nums[i]) {
+        maxstk.pop();
+      }
+      rmx[i] = maxstk.empty() ? n : maxstk.top();
+      maxstk.push(i);
+    }
+    LL mxsum = 0, mnsum = 0;
+    for (int i = 0; i < n; i++) {
+      mxsum += (LL)(rmx[i] - i) * (i - lmx[i]) * nums[i];
+      mnsum += (LL)(rmn[i] - i) * (i - lmn[i]) * nums[i];
+    }
+    return mxsum - mnsum;
+  }
 };

@@ -1,5 +1,5 @@
 class Solution {
-public:
+ public:
   vector<int> diffWaysToCompute(string expression) {
     vector<int> res;
     int n = expression.size();

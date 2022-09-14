@@ -5,26 +5,26 @@
     类似一个数位dp
 */
 class Solution {
-public:
-    using LL = long long;
+ public:
+  using LL = long long;
 
-    int preimageSizeFZF(int k) {
-        return calcu(k) - calcu(k - 1);
-    }   
+  int preimageSizeFZF(int k) { return calcu(k) - calcu(k - 1); }
 
-    LL calcu(int k) {
-        LL l = -1,r = 1e18;
-        while(l < r) {
-            LL mid = (l + r + 1) >> 1;
-            if(f(mid) <= k) l = mid;
-            else r = mid - 1;
-        }
-        return l;
+  LL calcu(int k) {
+    LL l = -1, r = 1e18;
+    while (l < r) {
+      LL mid = (l + r + 1) >> 1;
+      if (f(mid) <= k)
+        l = mid;
+      else
+        r = mid - 1;
     }
+    return l;
+  }
 
-    LL f(LL x) {
-        LL res = 0;
-        while(x) res += x / 5, x /= 5;
-        return res;
-    }
+  LL f(LL x) {
+    LL res = 0;
+    while (x) res += x / 5, x /= 5;
+    return res;
+  }
 };

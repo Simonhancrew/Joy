@@ -10,34 +10,28 @@ using namespace std;
     然后标记这些不得分的区间，最后看看那个点是最小的
     +-1一个区间可以用差分
 */
-class Solution
-{
-public:
-    int bestRotation(vector<int> &nums)
-    {
-        int n = nums.size();
-        vector<int> b(n + 1);
-        for (int i = 0; i < n; i++)
-        {
-            int l = i - nums[i] + 1, r = i;
-            if (l >= 0)
-                b[l]++, b[r + 1]--;
-            else
-            {
-                b[0]++, b[r + 1]--;
-                b[l + n]++, b[n]--;
-            }
-        }
-        int res = INT_MAX, k = -1;
-        for (int i = 0, sum = 0; i < n; i++)
-        {
-            sum += b[i];
-            if (res > sum)
-            {
-                res = sum;
-                k = i;
-            }
-        }
-        return k;
+class Solution {
+ public:
+  int bestRotation(vector<int> &nums) {
+    int n = nums.size();
+    vector<int> b(n + 1);
+    for (int i = 0; i < n; i++) {
+      int l = i - nums[i] + 1, r = i;
+      if (l >= 0)
+        b[l]++, b[r + 1]--;
+      else {
+        b[0]++, b[r + 1]--;
+        b[l + n]++, b[n]--;
+      }
     }
+    int res = INT_MAX, k = -1;
+    for (int i = 0, sum = 0; i < n; i++) {
+      sum += b[i];
+      if (res > sum) {
+        res = sum;
+        k = i;
+      }
+    }
+    return k;
+  }
 };

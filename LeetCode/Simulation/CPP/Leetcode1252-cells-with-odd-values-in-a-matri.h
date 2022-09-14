@@ -1,5 +1,5 @@
 class Solution {
-public:
+ public:
   int oddCells(int m, int n, vector<vector<int>> &indices) {
     vector<int> row(m), col(n);
     for (auto pos : indices) {
@@ -9,8 +9,7 @@ public:
     int cnt = 0;
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        if (row[i] + col[j] & 1)
-          ++cnt;
+        if (row[i] + col[j] & 1) ++cnt;
       }
     }
     return cnt;

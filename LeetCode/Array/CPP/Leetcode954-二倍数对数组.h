@@ -1,6 +1,6 @@
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -13,23 +13,22 @@ using namespace std;
 */
 
 class Solution {
-public:
-    bool canReorderDoubled(vector<int>& arr) {
-        unordered_map<int,int> mp;
-        vector<int> rec;
-        for(auto &num : arr) mp[num]++;
-        for(auto &[k,_] : mp) {
-            rec.push_back(k);
-        }
-        sort(rec.begin(),rec.end(),[](int lhs,int rhs) {
-            return abs(lhs) < abs(rhs);
-        });
-        for(auto x : rec) {
-            if(mp[x * 2] < mp[x]) {
-                return false;
-            }
-            mp[x * 2] -= mp[x];
-        }
-        return true;
+ public:
+  bool canReorderDoubled(vector<int> &arr) {
+    unordered_map<int, int> mp;
+    vector<int> rec;
+    for (auto &num : arr) mp[num]++;
+    for (auto &[k, _] : mp) {
+      rec.push_back(k);
     }
+    sort(rec.begin(), rec.end(),
+         [](int lhs, int rhs) { return abs(lhs) < abs(rhs); });
+    for (auto x : rec) {
+      if (mp[x * 2] < mp[x]) {
+        return false;
+      }
+      mp[x * 2] -= mp[x];
+    }
+    return true;
+  }
 };

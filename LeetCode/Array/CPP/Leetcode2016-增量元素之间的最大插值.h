@@ -1,5 +1,5 @@
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -9,16 +9,16 @@ using namespace std;
 */
 
 class Solution {
-public:
-    int maximumDifference(vector<int>& nums) {
-        int ans = -1,mn = nums[0],n = nums.size();
-        for(int i = 1;i < n;i++) {
-            if(nums[i] > mn) {
-                ans = max(ans,nums[i] - mn);
-            }else{
-                mn = nums[i];
-            }
-        }
-        return ans;
+ public:
+  int maximumDifference(vector<int>& nums) {
+    int ans = -1, mn = nums[0], n = nums.size();
+    for (int i = 1; i < n; i++) {
+      if (nums[i] > mn) {
+        ans = max(ans, nums[i] - mn);
+      } else {
+        mn = nums[i];
+      }
     }
+    return ans;
+  }
 };
