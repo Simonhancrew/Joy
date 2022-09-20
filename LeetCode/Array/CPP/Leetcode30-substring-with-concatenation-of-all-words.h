@@ -19,11 +19,14 @@ class Solution {
         if (j >= i + m * w) {
           string t = s.substr(j - m * w, w);
           tmp[t]--;
+          // 有效的字符串减少了，总体的cnt需要-1
           if (tmp[t] < rec[t]) cnt--;
         }
         string t = s.substr(j, w);
         tmp[t]++;
+        // 合法的words里的子串
         if (tmp[t] <= rec[t]) cnt++;
+        // 总体的数量满足words.size()
         if (cnt == m) res.push_back(j - (m - 1) * w);
       }
     }
