@@ -1,6 +1,6 @@
 class Solution:
     def duplicateZeros(self, arr: List[int]) -> None:
-        n,i,j,cnt = len(arr),0,0,0
+        n, i, j, cnt = len(arr), 0, 0, 0
         while cnt < n:
             if arr[i]:
                 cnt += 1
@@ -20,4 +20,3 @@ class Solution:
                 arr[j] = 0
                 j -= 1
             i -= 1
-        

@@ -1,14 +1,14 @@
 class Node:
-    def __init__(self,val):
+    def __init__(self, val):
         self.val = val
         self.next = None
         self.prev = None
 
-class MyLinkedList:
 
+class MyLinkedList:
     def __init__(self):
         self.dummy = Node(-1)
-        self.tail = Node(-1)    
+        self.tail = Node(-1)
         self.size = 0
         self.dummy.next = self.tail
         self.tail.prev = self.dummy
@@ -32,17 +32,17 @@ class MyLinkedList:
     def addAtTail(self, val: int) -> None:
         t = Node(val)
         t.next = self.tail
-        t.prev = self.tail.prev 
+        t.prev = self.tail.prev
         self.tail.prev.next = t
         self.tail.prev = t
         self.size += 1
 
     def addAtIndex(self, index: int, val: int) -> None:
         if index > self.size: return
-        if index == self.size: 
+        if index == self.size:
             self.addAtTail(val)
             return
-        if index < 0: 
+        if index < 0:
             self.addAtHead(val)
             return
         t = self.dummy
@@ -63,7 +63,7 @@ class MyLinkedList:
         while index >= 0:
             t = t.next
             index -= 1
-        pre,ne = t.prev,t.next
+        pre, ne = t.prev, t.next
         pre.next = ne
         ne.prev = pre
         self.size -= 1

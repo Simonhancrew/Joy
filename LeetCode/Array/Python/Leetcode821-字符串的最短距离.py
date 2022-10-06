@@ -7,8 +7,8 @@ class Solution:
             if s[i] == c: idx = i
             if idx != -1: res[i] = i - idx
         idx = -1
-        for i in range(n - 1,-1,-1):
+        for i in range(n - 1, -1, -1):
             if s[i] == c: idx = i
-            if idx != -1: res[i] = min(res[i],idx - i)
+            if idx != -1: res[i] = min(res[i], idx - i)
 
         return res

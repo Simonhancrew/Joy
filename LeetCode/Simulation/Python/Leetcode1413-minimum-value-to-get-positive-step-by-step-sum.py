@@ -1,6 +1,6 @@
 class Solution:
     def minStartValue(self, nums: List[int]) -> int:
-        acc,ans = 0,1
+        acc, ans = 0, 1
         for num in nums:
             acc += num
             nag = 1 - acc

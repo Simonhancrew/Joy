@@ -6,7 +6,7 @@ class Solution:
             intervals[i].append(i)
         intervals.sort()
         for x in intervals:
-            l,r = 0,n - 1
+            l, r = 0, n - 1
             while l < r:
                 mid = l + r >> 1
                 if intervals[mid][0] >= x[1]: r = mid

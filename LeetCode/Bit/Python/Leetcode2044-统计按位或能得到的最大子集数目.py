@@ -1,7 +1,7 @@
 class Solution:
     def countMaxOrSubsets(self, nums: List[int]) -> int:
-        ans,n,mxor = 0, len(nums),0
-        for i in range(1,(1 << n)):
+        ans, n, mxor = 0, len(nums), 0
+        for i in range(1, (1 << n)):
             cur = 0
             for j in range(n):
                 if (i >> j) & 1 == 1: cur |= nums[j]

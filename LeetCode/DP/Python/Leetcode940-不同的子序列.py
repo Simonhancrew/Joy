@@ -1,6 +1,6 @@
 class Solution:
     def distinctSubseqII(self, s: str) -> int:
-        MOD,n = int(1e9) + 7,len(s)
+        MOD, n = int(1e9) + 7, len(s)
         f = [[0] * 26 for _ in range(n + 1)]
         for i in range(n):
             t = ord(s[i]) - ord('a')

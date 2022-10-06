@@ -3,10 +3,10 @@ class Solution:
         while tx > sx and ty > sy:
             if ty > tx: ty %= tx
             else: tx %= ty
-        
+
         if tx < sx or ty < sy: return False
-        
-        if tx == sx: 
+
+        if tx == sx:
             return (ty - sy) % tx == 0
-        
+
         return (tx - sx) % ty == 0

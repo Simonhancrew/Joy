@@ -1,5 +1,4 @@
 class MagicDictionary:
-
     def __init__(self):
         self.rec = []
 

@@ -1,21 +1,20 @@
-
 maxlevel = 8
 
-class Node:
 
-    def __init__(self,val):
-        self.val =  val
-        self.next = [None] * maxlevel  
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = [None] * maxlevel
+
 
 class Skiplist:
-
     def __init__(self):
         self.head = Node(-1)
 
-    def find(self,target):
-        pre = [None] * maxlevel 
+    def find(self, target):
+        pre = [None] * maxlevel
         p = self.head
-        for i in range(maxlevel - 1, -1,-1):
+        for i in range(maxlevel - 1, -1, -1):
             while p.next[i] and p.next[i].val < target:
                 p = p.next[i]
             pre[i] = p
@@ -30,10 +29,10 @@ class Skiplist:
         # pass
         pre = self.find(num)
         p = Node(num)
-        for i in range(0,maxlevel):
+        for i in range(0, maxlevel):
             p.next[i] = pre[i].next[i]
             pre[i].next[i] = p
-            if randint(0,1) == 1: break
+            if randint(0, 1) == 1: break
 
     def erase(self, num: int) -> bool:
         pre = self.find(num)

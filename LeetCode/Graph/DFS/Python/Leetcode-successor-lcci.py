@@ -1,6 +1,6 @@
 class Solution:
     def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> TreeNode:
-        stk,cur,pre = [],root,None
+        stk, cur, pre = [], root, None
         while stk or cur:
             while cur:
                 stk.append(cur)

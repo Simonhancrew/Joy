@@ -1,7 +1,7 @@
 class Solution:
     def convertToBase7(self, num: int) -> str:
         if num == 0: return '0'
-        ans,flag = [],False
+        ans, flag = [], False
         if num < 0:
             num = -num
             flag = True
@@ -10,4 +10,4 @@ class Solution:
             num //= 7
         if flag: ans.append('-')
         ans = ans[::-1]
-        return ''.join(ans) 
+        return ''.join(ans)

@@ -1,5 +1,4 @@
 class MyCircularQueue:
-
     def __init__(self, k: int):
         self.q = [0] * (k + 1)
         self.hh = self.tt = 0
@@ -10,7 +9,7 @@ class MyCircularQueue:
         self.tt += 1
         if self.tt == len(self.q):
             self.tt = 0
-        return True 
+        return True
 
     def deQueue(self) -> bool:
         if self.isEmpty(): return False
@@ -26,7 +25,7 @@ class MyCircularQueue:
     def Rear(self) -> int:
         if self.isEmpty(): return -1
         t = self.tt - 1
-        if t < 0: 
+        if t < 0:
             t += len(self.q)
         return self.q[t]
 

@@ -6,6 +6,6 @@ class Solution:
         for word in s2.split():
             st[word] += 1
         ans = []
-        for k,v in st.items():
+        for k, v in st.items():
             if v == 1: ans.append(k)
         return ans

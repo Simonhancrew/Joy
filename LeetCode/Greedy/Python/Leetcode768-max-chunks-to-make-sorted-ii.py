@@ -1,8 +1,8 @@
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
-        b,n = arr[:],len(arr)
+        b, n = arr[:], len(arr)
         b.sort()
-        res,s,mp = 0,0,defaultdict(int)
+        res, s, mp = 0, 0, defaultdict(int)
         for i in range(n):
             if mp[arr[i]] == 1: s -= 1
             elif mp[arr[i]] == 0: s += 1

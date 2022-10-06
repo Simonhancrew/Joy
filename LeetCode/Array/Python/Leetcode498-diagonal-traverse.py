@@ -1,6 +1,6 @@
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        ans,m,n = [],len(mat[0]),len(mat)
+        ans, m, n = [], len(mat[0]), len(mat)
         for i in range(n + m - 1):
             if i % 2 == 1:
                 x = 0 if i < m else i - m + 1

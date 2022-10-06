@@ -1,6 +1,6 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        l,r = 0,0
+        l, r = 0, 0
         for c in s:
             if c == '(': l += 1
             elif c == ')':

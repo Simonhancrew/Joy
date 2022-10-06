@@ -1,6 +1,6 @@
 class Solution:
     def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
-        q,ans = deque([root]),0
+        q, ans = deque([root]), 0
         while q:
             n = len(q)
             ans = 0

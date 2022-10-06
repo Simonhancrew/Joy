@@ -1,7 +1,7 @@
 class Solution:
     def numSpecial(self, mat: List[List[int]]) -> int:
-        n,m = len(mat),len(mat[0])
-        r,c = [0] * n, [0] * m
+        n, m = len(mat), len(mat[0])
+        r, c = [0] * n, [0] * m
         for i in range(n):
             for j in range(m):
                 r[i] += mat[i][j]

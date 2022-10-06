@@ -4,6 +4,7 @@ class Solution:
         if tot % 4 != 0: return False
         arr.sort(reverse=True)
         edge = [0] * 4
+
         def dfs(u):
             if u == len(arr): return True
             for i in range(4):
@@ -12,4 +13,5 @@ class Solution:
                     return True
                 edge[i] -= arr[u]
             return False
+
         return dfs(0)

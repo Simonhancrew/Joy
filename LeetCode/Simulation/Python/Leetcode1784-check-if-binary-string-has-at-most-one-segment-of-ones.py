@@ -1,6 +1,6 @@
 class Solution:
     def checkOnesSegment(self, s: str) -> bool:
-        cnt,flag = 0,False
+        cnt, flag = 0, False
         for i in s:
             if i == '1':
                 if flag: continue

@@ -3,7 +3,7 @@ class Codec:
         self.mp = defaultdict(str)
         self.pa = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    def getRandom(self,n):
+    def getRandom(self, n):
         res = ''
         for i in range(n):
             res += self.pa[randrange(62)]
@@ -15,8 +15,7 @@ class Codec:
             if short_url in self.mp: continue
             self.mp[short_url] = longUrl
             return "http://hh.com/" + short_url
-        return  ''
-        
+        return ''
 
     def decode(self, shortUrl: str) -> str:
         return self.mp[shortUrl[14:]]

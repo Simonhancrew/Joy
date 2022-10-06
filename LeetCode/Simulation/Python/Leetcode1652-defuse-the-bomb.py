@@ -6,12 +6,12 @@ class Solution:
         for i in range(n):
             if k > 0:
                 acc = 0
-                for j in range(i + 1,i + 1 + k):
+                for j in range(i + 1, i + 1 + k):
                     acc += code[j % n]
                 ans[i] = acc
             else:
                 acc = 0
-                for j in range(i - 1,i + k - 1,-1):
+                for j in range(i - 1, i + k - 1, -1):
                     acc += code[(j + n) % n]
                 ans[i] = acc
         return ans

@@ -4,5 +4,5 @@ class Solution:
         sp = text.count(' ')
         if len(words) == 1:
             return words[0] + ' ' * sp
-        inter,extra = divmod(sp,len(words) - 1)
+        inter, extra = divmod(sp, len(words) - 1)
         return (' ' * inter).join(words) + ' ' * extra

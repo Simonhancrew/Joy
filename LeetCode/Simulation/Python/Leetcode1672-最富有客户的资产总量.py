@@ -3,5 +3,5 @@ class Solution:
         mx = 0
         for x in accounts:
             cur = sum(x)
-            mx = max(mx,cur)
+            mx = max(mx, cur)
         return mx

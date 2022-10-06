@@ -3,20 +3,21 @@ class trie:
         self.son = defaultdict(trie)
         self.flag = False
 
-    def insert(self,s):
+    def insert(self, s):
         node = self
         for ch in s:
             if not node.son[ch]: node.son[ch] = trie()
             node = node.son[ch]
         node.flag = True
-     
-    def query(self,s):
+
+    def query(self, s):
         node = self
-        for i,ch in enumerate(s):
+        for i, ch in enumerate(s):
             if not node.son[ch]: return s
             node = node.son[ch]
             if node.flag: return s[:i + 1]
         return s
+
 
 class Solution:
     def replaceWords(self, dictionary: List[str], sentence: str) -> str:

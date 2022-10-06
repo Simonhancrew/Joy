@@ -1,6 +1,6 @@
 class Solution:
     def consecutiveNumbersSum(self, n: int) -> int:
-        n,res = n * 2,0
+        n, res = n * 2, 0
         b = 1
         while b <= n // b:
             if n % b == 0:

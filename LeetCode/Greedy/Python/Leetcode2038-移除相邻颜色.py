@@ -1,6 +1,6 @@
 class Solution:
     def winnerOfGame(self, colors: str) -> bool:
-        f,cur,cnt = [0,0],'C',1
+        f, cur, cnt = [0, 0], 'C', 1
         for c in colors:
             if c != cur:
                 cur = c

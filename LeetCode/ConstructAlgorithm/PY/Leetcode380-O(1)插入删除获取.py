@@ -1,5 +1,4 @@
 class RandomizedSet:
-
     def __init__(self):
         self.mp = defaultdict()
         self.nums = []
@@ -15,13 +14,13 @@ class RandomizedSet:
         if val not in self.mp:
             return False
         tar = self.nums[-1]
-        px,py = self.mp[val],self.mp[tar]
-        self.nums[px],self.nums[py] = self.nums[py],self.nums[px]
-        self.mp[val],self.mp[tar] = self.mp[tar],self.mp[val]
+        px, py = self.mp[val], self.mp[tar]
+        self.nums[px], self.nums[py] = self.nums[py], self.nums[px]
+        self.mp[val], self.mp[tar] = self.mp[tar], self.mp[val]
         self.nums.pop(-1)
         del self.mp[val]
         return True
 
     def getRandom(self) -> int:
-        idx = randint(0,len(self.nums) - 1)
+        idx = randint(0, len(self.nums) - 1)
         return self.nums[idx]

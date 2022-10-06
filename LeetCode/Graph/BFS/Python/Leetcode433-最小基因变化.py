@@ -1,7 +1,7 @@
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
-        id = ['A','C','G','T']
-        st,q,dist = set(bank),deque(),defaultdict(int)
+        id = ['A', 'C', 'G', 'T']
+        st, q, dist = set(bank), deque(), defaultdict(int)
         dist[start] = 0
         q.append(start)
         while q:

@@ -3,8 +3,8 @@
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
         def cmp(s):
-            a,b = s.split(' ',1)
-            return (0,b,a) if b[0].isalpha() else (1,)
-        
-        logs.sort(key = cmp)
+            a, b = s.split(' ', 1)
+            return (0, b, a) if b[0].isalpha() else (1, )
+
+        logs.sort(key=cmp)
         return logs

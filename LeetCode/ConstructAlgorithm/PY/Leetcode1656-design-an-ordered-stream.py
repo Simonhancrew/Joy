@@ -1,9 +1,7 @@
 class OrderedStream:
-
     def __init__(self, n: int):
         self.mp = defaultdict(str)
         self.ptr = 1
-
 
     def insert(self, idKey: int, value: str) -> List[str]:
         self.mp[idKey] = value

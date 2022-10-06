@@ -1,6 +1,7 @@
 class Solution:
     def tree2str(self, root: Optional[TreeNode]) -> str:
         res = []
+
         def dfs(root):
             if not root: return
             res.append(str(root.val))
@@ -12,5 +13,6 @@ class Solution:
                 res.append('(')
                 dfs(root.right)
                 res.append(')')
+
         dfs(root)
         return ''.join(res)
