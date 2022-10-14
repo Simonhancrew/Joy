@@ -2,22 +2,19 @@ package sbgo
 
 func distinctSubseqII(s string) int {
 	MOD, n := int(1e9)+7, len(s)
-	f := make([][]int, n+1)
-	for i := 0; i <= n; i++ {
-		f[i] = make([]int, 26)
-	}
-	for i := 0; i < n; i++ {
-		f[i+1][s[i]-'a'] = 1
-		for j := 0; j < 26; j++ {
-			f[i+1][s[i]-'a'] = (f[i+1][s[i]-'a'] + f[i][j]) % MOD
-			if int(s[i]-'a') != j {
-				f[i+1][j] = (f[i+1][j] + f[i][j]) % MOD
-			}
+	f := make([]int, 26)
+	f[s[0]-'a'] = 1
+	sum := func(arr []int) int {
+		res := 0
+		for _, val := range arr {
+			res = (res + val) % MOD
 		}
+		return res
 	}
-	res := 0
-	for _, x := range f[n] {
-		res = (res + x) % MOD
+	for i := 1; i < n; i++ {
+		rec := 0
+		rec = sum(f) + 1
+		f[s[i]-'a'] = rec
 	}
-	return res
+	return sum(f)
 }

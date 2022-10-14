@@ -1,17 +1,11 @@
 var distinctSubseqII = function (s) {
-    let [MOD, n] = [1e9 + 7, s.length];
-    let f = new Array(n + 1).fill(0).map(() => new Array(26).fill(0));
-    for (let i = 0; i < n; i++) {
-        t = s[i].charCodeAt() - 'a'.charCodeAt();
-        f[i + 1][t] = 1;
-        for (let j = 0; j < 26; j++) {
-            f[i + 1][t] = (f[i + 1][t] + f[i][j]) % MOD;
-            if (t != j) {
-                f[i + 1][j] = (f[i + 1][j] + f[i][j]) % MOD;
-            }
-        }
+    const [n, P] = [s.length, parseInt(1e9 + 7)];
+    let f = new Array(26).fill(0);
+    f[s[0].charCodeAt() - 'a'.charCodeAt()] = 1;
+    for (let i = 1; i < n; i++) {
+        let rec = f[s[i].charCodeAt() - 'a'.charCodeAt()];
+        rec = f.reduce((sum, cur) => sum + cur, 1) % P;
+        f[s[i].charCodeAt() - 'a'.charCodeAt()] = rec;
     }
-    let res = 0;
-    for (const x of f[n]) res = (res + x) % MOD;
-    return res;
+    return f.reduce((sum, cur) => sum + cur, 0) % P;
 };
