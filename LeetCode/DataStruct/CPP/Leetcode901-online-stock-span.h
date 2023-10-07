@@ -1,21 +1,26 @@
-class StockSpanner {
-public:
-    int idx = 0;
-    stack<int> day, prices;
-    StockSpanner() {
-        day.emplace(-1);
-        prices.emplace(INT_MAX);
-    }   
-    
-    int next(int price) {
-        while(price >= prices.top()) {
-            day.pop();
-            prices.pop();
-        }
-        int res = idx - day.top();
-        day.emplace(idx++);
-        prices.emplace(price);
-        return res;
-    }
-};
+#include <vector>
 
+using namespace std;
+
+class StockSpanner {
+ public:
+  using PII = pair<int, int>;
+  vector<PII> st;
+  int idx{};
+
+  StockSpanner() = default;
+
+  int next(int price) {
+    while (!st.empty() && st.back().second <= price) {
+      st.pop_back();
+    }
+    if (st.empty()) {
+      st.emplace_back(idx++, price);
+      return idx;
+    }
+    int id = st.back().first;
+    auto res = idx - id;
+    st.emplace_back(idx++, price);
+    return res;
+  }
+};
