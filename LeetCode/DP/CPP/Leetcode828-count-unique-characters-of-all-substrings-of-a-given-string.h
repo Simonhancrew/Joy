@@ -1,3 +1,8 @@
+#include <vector>
+#include <string>
+
+using namespace std;
+
 // 记录当前位置往左找最近的相同值，右边同理
 // 最后的结果就是(i - l[i]) * (r[i] - i)
 // 只用考虑当前的字符对哪些子字符串有贡献就可以了
