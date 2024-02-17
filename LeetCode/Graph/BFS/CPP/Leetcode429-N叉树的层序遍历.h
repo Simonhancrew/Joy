@@ -1,8 +1,14 @@
+#include <queue>
+
+using namespace std;
+
 class Solution {
- public:
+public:
   vector<vector<int>> levelOrder(Node *root) {
+    if (!root) {
+      return {};
+    }
     vector<vector<int>> res;
-    if (!root) return res;
     queue<Node *> q;
     q.push(root);
     while (q.size()) {
@@ -12,9 +18,11 @@ class Solution {
         auto t = q.front();
         q.pop();
         cur.push_back(t->val);
-        for (auto ne : t->children) q.push(ne);
+        for (auto ne : t->children) {
+          q.push(ne);
+        }
       }
-      res.push_back(cur);
+      res.push_back(std::move(cur));
     }
     return res;
   }
