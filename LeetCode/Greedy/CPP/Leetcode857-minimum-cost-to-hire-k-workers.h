@@ -1,35 +1,39 @@
+#include <numeric>
 #include <queue>
 #include <vector>
 
 using namespace std;
 
-// 不难发现要求quality的和最后支付的wage的比值都要相等
-// 等价于比值x * qa >= wa --> x >= wa / qa
-// 所以将所有的比值放入vec,排序
-// 针对当前比值，选取k个qality最小的，最后乘起来的sum就是结果，从头到尾取最小的
+// 同组同比例发，单quality的价值是一致的，所以最大的比值满足了，小的也满足，所以只需要考虑最大的比值,
+// 排序
+// 最大的quality价值确定后，要让k个的quality和最小，因此要维护k个最小的quality，所以用大顶堆
+// 遍历的时候更新
 
 class Solution {
- public:
-  using PDI = pair<double, int>;
-  double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int k) {
-    vector<PDI> rec;
+public:
+  double mincostToHireWorkers(vector<int> &quality, vector<int> &wage, int k) {
     int n = quality.size();
-    for (int i = 0; i < n; i++) {
-      rec.emplace_back(1.0 * wage[i] / quality[i], i);
-    }
-    sort(rec.begin(), rec.end());
-    double ans = 1e18;
-    int sum = 0;
+    double ans{};
+    vector<int> arr(n);
+    iota(arr.begin(), arr.end(), 0);
+    ranges::sort(arr, [&](int i, int j) {
+      return quality[j] * wage[i] < quality[i] * wage[j];
+    });
     priority_queue<int> heap;
-    for (int i = 0; i < n; i++) {
-      heap.push(quality[rec[i].second]);
-      sum += quality[rec[i].second];
-      if (heap.size() > k) {
-        sum -= heap.top();
+    int sum = 0;
+    for (int i = 0; i < k; i++) {
+      sum += quality[arr[i]];
+      heap.push(quality[arr[i]]);
+    }
+    ans = sum * (double)(wage[arr[k - 1]]) / quality[arr[k - 1]];
+    for (int i = k; i < n; i++) {
+      auto cur = quality[arr[i]];
+      if (cur < heap.top()) {
+        auto pre = heap.top();
         heap.pop();
-      }
-      if (heap.size() == k) {
-        ans = min(ans, sum * rec[i].first);
+        heap.push(cur);
+        sum += cur - pre;
+        ans = min(ans, sum * (double)(wage[arr[i]]) / cur);
       }
     }
     return ans;
