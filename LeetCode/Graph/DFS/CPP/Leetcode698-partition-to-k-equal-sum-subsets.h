@@ -1,40 +1,41 @@
 class Solution {
- public:
-  int ave;
-  vector<bool> st;
-
-  bool dfs(vector<int> &nums, int start, int cur, int k) {
-    if (k == 1)
-      return true;
-    if (cur > ave)
-      return false;
-    if (cur == ave)
-      return dfs(nums, 0, 0, k - 1);
-    for (int i = start; i < nums.size(); i++) {
-      if (st[i])
-        continue;
-      if (cur + nums[i] <= ave) {
-        st[i] = true;
-        if (dfs(nums, start + 1, cur + nums[i], k))
-          return true;
-        st[i] = false;
-      }
-      if (!cur)
-        return false;
-    }
-    return false;
-  }
-
+public:
   bool canPartitionKSubsets(vector<int> &nums, int k) {
-    // this->nums = nums;
-    st.resize(nums.size());
     int acc = accumulate(nums.begin(), nums.end(), 0);
-    if (acc % k)
+    if (acc % k != 0) {
       return false;
-    ave = acc / k;
-    sort(nums.begin(), nums.end(), [](int lhs, int rhs) {
-      return lhs > rhs;
-    });
-    return dfs(nums, 0, 0, k);
+    }
+    sort(nums.begin(), nums.end());
+    int tar = acc / k;
+    int n = nums.size();
+    vector<int> st(n, 0);
+    auto dfs = [&](auto &&dfs, int idx, int cnt, int cur) -> bool {
+      if (cnt == k) {
+        return true;
+      }
+      if (idx < 0) {
+        return false;
+      }
+      bool res = 0;
+      for (int i = idx; i >= 0; i--) {
+        if (st[i] || cur + nums[i] > tar)
+          continue;
+        st[i] = true;
+        if (cur + nums[i] < tar)
+          res |= dfs(dfs, idx - 1, cnt, cur + nums[i]);
+        else
+          res |= dfs(dfs, n - 1, cnt + 1, 0);
+        st[i] = false;
+        if (res) {
+          return true;
+        }
+        // 可行性剪枝，最大的选了还没答案，后面的更不可能了
+        if (cur == 0)
+          return false;
+      }
+      return false;
+    };
+    auto res = dfs(dfs, n - 1, 0, 0);
+    return res;
   }
 };
