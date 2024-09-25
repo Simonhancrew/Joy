@@ -8,20 +8,22 @@ using namespace std;
 // 做一个滑动窗口就可以
 
 class Solution {
- public:
-  static int maxScore(vector<int>& cardPoints, int k) {
-    auto n = cardPoints.size();
+public:
+  int maxScore(vector<int> &cardPoints, int k) {
+    int n = cardPoints.size();
     int tot = accumulate(cardPoints.begin(), cardPoints.end(), 0);
-    if (n == k) {
+    int m = n - k;
+    if (m == 0) {
       return tot;
     }
-    auto len = n - k;
-    int minsum = accumulate(cardPoints.cbegin(), cardPoints.cbegin() + len, 0);
-    auto cur = minsum;
-    for (auto r = len; r < n; r++) {
-      cur += cardPoints[r] - cardPoints[r - len];
-      minsum = min(minsum, cur);
+    int acc = 0, tar = INT_MAX;
+    for (int i = 0; i < n; i++) {
+      acc += cardPoints[i];
+      if (i < m - 1)
+        continue;
+      tar = min(tar, acc);
+      acc -= cardPoints[i - m + 1];
     }
-    return tot - minsum;
+    return tot - tar;
   }
 };
