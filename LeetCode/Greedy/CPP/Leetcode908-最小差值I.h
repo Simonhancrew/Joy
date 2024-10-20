@@ -5,10 +5,9 @@
     没有距离的话，全部都可以变成一样，界为0
 */
 class Solution {
- public:
+public:
   int smallestRangeI(vector<int> &nums, int k) {
-    int mx = *max_element(nums.begin(), nums.end()),
-        mn = *min_element(nums.begin(), nums.end());
-    return max(0, mx - mn - 2 * k);
+    return max(0, *max_element(nums.begin(), nums.end()) - k -
+                      *min_element(nums.begin(), nums.end()) - k);
   }
 };
