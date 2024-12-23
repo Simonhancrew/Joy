@@ -2,26 +2,26 @@
 
 using namespace std;
 
-
-// 中间的点 + 考虑左右两边的
+// 要么是左右边界，要么是两个坐了人的中间，看那个距离大。
+// 遍历构成中找最大的区间，然后跟左右两个边界区间求最值
 
 class Solution {
  public:
-  int maxDistToClosest(vector<int>& seats) {
-    int x = -1, y = -1;
-    int d = INT_MIN;
+  int maxDistToClosest(vector<int> &seats) {
+    int first = -1, last = -1;
+    int d = 0;
     int n = seats.size();
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < seats.size(); ++i) {
       if (seats[i] == 1) {
-        if (y != -1) {
-          d = max(d, i - y);
+        if (last != -1) {
+          d = max(d, i - last);
         }
-        if (x == -1) {
-          x = i;
+        last = i;
+        if (first == -1) {
+          first = i;
         }
-        y = i;
       }
     }
-    return max({x, d / 2, n - 1 - y});
+    return max({first, n - last - 1, d / 2});
   }
 };
