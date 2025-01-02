@@ -47,6 +47,7 @@ class segtree {
   int val;
   int tag;
 };
+#if 0
 class MyCalendar {
  public:
   segtree *tr;
@@ -57,4 +58,35 @@ class MyCalendar {
     tr->add(start, end - 1);
     return true;
   }
+};
+#endif
+
+#include <algorithm>
+#include <set>
+
+using namespace std;
+
+class MyCalendar {
+ public:
+  MyCalendar() {
+  }
+
+  bool book(int startTime, int endTime) {
+    auto it = events.lower_bound({startTime, endTime});
+    // prev
+    if (it != events.begin() && std::prev(it)->second > startTime) {
+      return false;
+    }
+    // next
+    if (it != events.end() && it->first < endTime) {
+      return false;
+    }
+    // current
+    events.insert({startTime, endTime});
+    return true;
+  }
+
+ private:
+  using PII = pair<int, int>;
+  set<PII> events;
 };
