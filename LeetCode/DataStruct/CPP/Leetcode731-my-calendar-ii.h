@@ -58,6 +58,7 @@ class segtree {
   int l, r;
   int val, tag;
 };
+#if 0
 class MyCalendarTwo {
  public:
   segtree *seg;
@@ -70,5 +71,35 @@ class MyCalendarTwo {
       return true;
     }
     return false;
+  }
+};
+#endif
+
+#include <set>
+
+using namespace std;
+
+class MyCalendarTwo {
+ public:
+  using PII = pair<int, int>;
+  set<PII> rec;
+  set<PII> common;
+  MyCalendarTwo() {
+    common.insert({INT_MAX, INT_MAX});
+    common.insert({INT_MIN, INT_MIN});
+  }
+
+  bool book(int startTime, int endTime) {
+    auto it = common.lower_bound({startTime, endTime});
+    if (it->first < endTime || prev(it)->second > startTime) {
+      return false;
+    }
+    for (const auto &[l, r] : rec) {
+      if (std::max(l, startTime) < std::min(r, endTime)) {
+        common.insert({max(l, startTime), min(r, endTime)});
+      }
+    }
+    rec.insert({startTime, endTime});
+    return true;
   }
 };
