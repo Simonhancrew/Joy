@@ -23,29 +23,41 @@ class MyCalendarThree {
 */
 
 #ifdef SEG
-#define mx first
-#define tag second
 class MyCalendarThree {
  public:
-  // first max,second tag
-  unordered_map<int, pair<int, int>> tr;
-  MyCalendarThree() {}
-  // 使用大写字母常数化需要修改的区间，tr[idx]和其左右儿子（l,r）相关
-  void update(int S, int E, int l, int r, int idx) {
-    if (l >= S && r <= E) {
-      tr[idx].mx++;
-      tr[idx].tag++;
-    } else {
-      int mid = l + r >> 1;
-      if (mid >= S) update(S, E, l, mid, idx << 1);
-      if (E > mid) update(S, E, mid + 1, r, idx << 1 | 1);
-      tr[idx].mx = tr[idx].tag + max(tr[idx << 1].mx, tr[idx << 1 | 1].mx);
-    }
+  MyCalendarThree() : tr(10) {
   }
 
-  int book(int start, int end) {
-    update(start, end - 1, 0, 1e9, 1);
-    return tr[1].mx;
+  int book(int startTime, int endTime) {
+    add(1, 0, 1e9, startTime, endTime - 1);
+    return tr[1].first;
+  }
+
+ private:
+  using PII = pair<int, int>;
+  unordered_map<int, PII> tr;
+
+  void pushdown(int id) {
+    tr[id << 1].first += tr[id].second;
+    tr[id << 1 | 1].first += tr[id].second;
+    tr[id << 1 | 1].second += tr[id].second;
+    tr[id << 1].second += tr[id].second;
+    tr[id].second = 0;
+  }
+
+  void add(int id, int ul, int ur, int kl, int kr) {
+    if (ul >= kl && ur <= kr) {
+      tr[id].first++;
+      tr[id].second++;
+      return;
+    }
+    pushdown(id);
+    int mid = (ul + ur) >> 1;
+    if (mid >= kl)
+      add(id << 1, ul, mid, kl, kr);
+    if (mid < kr)
+      add(id << 1 | 1, mid + 1, ur, kl, kr);
+    tr[id].first = max(tr[id << 1].first, tr[id << 1 | 1].first);
   }
 };
 #endif
