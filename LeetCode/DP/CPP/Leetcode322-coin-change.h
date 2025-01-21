@@ -5,21 +5,22 @@
 using namespace std;
 
 class Solution {
-public:
+ public:
   int coinChange(vector<int> &coins, int amount) {
-    int n = coins.size();
-    vector<vector<int>> f(n, vector<int>(amount + 1, -1));
-    function<int(int, int)> dfs = [&](int i, int c) {
-      if (i < 0)
-        return c == 0 ? 0 : INT_MAX / 2;
-      auto &res = f[i][c];
-      if (res != -1)
-        return res;
-      if (c < coins[i])
-        return res = dfs(i - 1, c);
-      return res = min(dfs(i - 1, c), dfs(i, c - coins[i]) + 1);
-    };
-    auto res = dfs(n - 1, amount);
-    return res < INT_MAX / 2 ? res : -1;
+    vector<int> f(amount + 1, 0x3f3f3f3f);
+    f[0] = 0;
+    for (const auto x : coins) {
+      if (x >= amount)
+        continue;
+      f[x] = 1;
+    }
+    for (int i = 0; i <= amount; i++) {
+      for (const auto x : coins) {
+        if (i >= x) {
+          f[i] = min(f[i], f[i - x] + 1);
+        }
+      }
+    }
+    return f[amount] == 0x3f3f3f3f ? -1 : f[amount];
   }
 };
