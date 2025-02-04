@@ -1,34 +1,33 @@
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
 class Solution {
  public:
   using LL = long long;
-  vector<int> successfulPairs(vector<int>& spells, vector<int>& potions,
+  vector<int> successfulPairs(vector<int> &spells, vector<int> &potions,
                               long long success) {
-    int n = spells.size(), m = potions.size();
-    sort(potions.begin(), potions.end());
-    vector<int> ans;
-    ans.reserve(n);
-    auto check = [&](const LL& x) {
-      auto l = 0, r = m - 1;
-      while (l < r) {
+    ranges::sort(potions.begin(), potions.end());
+    vector<int> res;
+    res.reserve(spells.size());
+    auto get = [&](int x) -> int {
+      int l = -1, r = potions.size();
+      while (l + 1 < r) {
         int mid = l + r >> 1;
-        if (potions[mid] * x >= success)
-          r = mid;
+        if ((LL)x * potions[mid] < success)
+          l = mid;
         else
-          l = mid + 1;
+          r = mid;
       }
-      if (potions[l] * x < success) {
+      if (r == potions.size()) {
         return 0;
       }
-      return m - l;
+      return potions.size() - r;
     };
-    for (int i = 0; i < n; i++) {
-      ans.push_back(check(spells[i]));
+    for (const auto x : spells) {
+      res.push_back(get(x));
     }
-    return ans;
+    return res;
   }
 };
