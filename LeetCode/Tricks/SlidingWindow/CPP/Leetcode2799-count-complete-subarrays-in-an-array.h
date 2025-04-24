@@ -5,26 +5,21 @@ using namespace std;
 
 class Solution {
  public:
-  int countCompleteSubarrays(vector<int>& nums) {
-    unordered_set<int> st;
-    for (const auto x : nums) {
-      st.insert(x);
-    }
-    int n = nums.size();
-    int m = st.size();
-    int ans = 0;
+  int countCompleteSubarrays(vector<int> &nums) {
+    unordered_set<int> st(nums.begin(), nums.end());
+    int tot = st.size();
+    int l = 0, ans = 0;
     unordered_map<int, int> mp;
-    for (int l = 0, r = 0; l <= n - m; l++) {
-      while (r < n && mp.size() < m) {
-        mp[nums[r++]]++;
+    for (int r = 0; r < nums.size(); ++r) {
+      mp[nums[r]]++;
+      while (mp.size() == tot) {
+        int tar = mp[nums[l]];
+        if (--mp[nums[l]] == 0) {
+          mp.erase(nums[l]);
+        }
+        ++l;
       }
-      if (mp.size() == m) {
-        ans += n - r + 1;
-      }
-      mp[nums[l]]--;
-      if (mp[nums[l]] == 0) {
-        mp.erase(nums[l]);
-      }
+      ans += l;
     }
     return ans;
   }
