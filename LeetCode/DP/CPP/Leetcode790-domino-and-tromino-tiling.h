@@ -1,20 +1,27 @@
-// 蒙德里安猜想的简化版，不用状压dp
-// f[i][j]，填完前i列，第i + 1列的状态是j
-// 因为只有两行，所以状态很少，做一个状态转移的硬推w
+/*
+  考虑f[i]表示长度为i的矩形的铺法数，f[i]可以由以下几种方式得到：
+    1. 竖着放的1 * 2，去掉的话变成2 * (i - 1)的方案, f[i - 1]
+    2. 两个横着放的2 * 1, 去掉的话变成2 * (i - 2)的方案, f[i - 2]
+    3. 最右边放L型，可以对称放，中间是2 * 1的横着摆，可以放(0, 1, 2, ..., i-3)个，对应的左边的就是
+      f[i - 3], ... f[0]
+  递推
+    f[i] = f[i - 1] + f[i - 2] + 2 * sum(0, i -3)f[j]
+    f[n] - f[n - 1]得到f[n]的递推式
+*/
 class Solution {
  public:
-  const int P = 1e9 + 7;
+  using LL                 = long long;
+  static constexpr int MOD = 1e9 + 7;
   int numTilings(int n) {
-    int w[4][4] = {{1, 1, 1, 1}, {0, 0, 1, 1}, {0, 1, 0, 1}, {1, 0, 0, 0}};
-    vector<vector<int>> f(n + 1, vector<int>(4, 0));
-    f[0][0] = 1;
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < 4; j++) {
-        for (int k = 0; k < 4; k++) {
-          f[i + 1][k] = (f[i + 1][k] + f[i][j] * w[j][k]) % P;
-        }
-      }
+    if (n == 1) {
+      return 1;
     }
-    return f[n][0];
+    vector<LL> f(n + 1);
+    f[0] = f[1] = 1;
+    f[2]        = 2;
+    for (int i = 3; i <= n; i++) {
+      f[i] = (f[i - 1] * 2 + f[i - 3]) % MOD;
+    }
+    return f[n];
   }
 };
