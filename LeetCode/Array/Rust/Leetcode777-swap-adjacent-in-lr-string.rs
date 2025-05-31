@@ -3,31 +3,31 @@
 // 然后L和R不能互相跨过，遍历统计就行了
 impl Solution {
   pub fn can_transform(start: String, end: String) -> bool {
-      let n = start.len();
-      let (mut i,mut j) = (0,0);
-      let (start,end) = (start.as_bytes(),end.as_bytes());
-      loop {
-          while i < n && start[i] == b'X' {
-              i += 1;
-          }
-          while j < n && end[j] == b'X' {
-              j += 1;
-          }
-          if i == n || j == n {
-              break;
-          }
-          if start[i] != end[j] {
-              return false;
-          } 
-          if start[i] == b'L' && i < j {
-              return false;
-          }
-          if start[i] == b'R' && i > j {
-              return false;
-          }
-          i += 1;
-          j += 1;
+    let n = start.len();
+    let (mut i, mut j) = (0, 0);
+    let (start, end) = (start.as_bytes(), end.as_bytes());
+    loop {
+      while i < n && start[i] == b'X' {
+        i += 1;
       }
-      i == n && j == n
+      while j < n && end[j] == b'X' {
+        j += 1;
+      }
+      if i == n || j == n {
+        break;
+      }
+      if start[i] != end[j] {
+        return false;
+      }
+      if start[i] == b'L' && i < j {
+        return false;
+      }
+      if start[i] == b'R' && i > j {
+        return false;
+      }
+      i += 1;
+      j += 1;
+    }
+    i == n && j == n
   }
 }

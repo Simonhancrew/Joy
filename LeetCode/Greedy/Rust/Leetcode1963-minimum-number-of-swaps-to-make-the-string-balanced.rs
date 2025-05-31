@@ -3,17 +3,17 @@
 // 后面的已经全部平衡了，继续+不会增大答案的
 impl Solution {
   pub fn min_swaps(s: String) -> i32 {
-      let (mut ans, mut cnt) = (0, 0);
-      for c in s.chars() {
-          if c == '[' {
-              cnt += 1;
-          } else if (cnt > 0) {
-              cnt -= 1;
-          } else {
-              cnt += 1;
-              ans += 1;
-          }
+    let (mut ans, mut cnt) = (0, 0);
+    for c in s.chars() {
+      if c == '[' {
+        cnt += 1;
+      } else if (cnt > 0) {
+        cnt -= 1;
+      } else {
+        cnt += 1;
+        ans += 1;
       }
-      ans
+    }
+    ans
   }
 }

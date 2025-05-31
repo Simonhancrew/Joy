@@ -4,19 +4,19 @@
 // 多出来的奇数部分单独处理
 impl Solution {
   pub fn minimum_swap(s1: String, s2: String) -> i32 {
-      let (mut a, mut b) = (0, 0);
-      for i in 0..s1.len() {
-          if s1.as_bytes()[i] != s2.as_bytes()[i] {
-              if s1.as_bytes()[i] == b'x' {
-                  a += 1;
-              } else {
-                  b += 1;
-              }
-          }
+    let (mut a, mut b) = (0, 0);
+    for i in 0..s1.len() {
+      if s1.as_bytes()[i] != s2.as_bytes()[i] {
+        if s1.as_bytes()[i] == b'x' {
+          a += 1;
+        } else {
+          b += 1;
+        }
       }
-      if (a + b) % 2 != 0 {
-          return -1;
-      }
-      a / 2 + b / 2 + a % 2 + b % 2
+    }
+    if (a + b) % 2 != 0 {
+      return -1;
+    }
+    a / 2 + b / 2 + a % 2 + b % 2
   }
 }

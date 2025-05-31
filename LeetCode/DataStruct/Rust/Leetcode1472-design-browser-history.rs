@@ -1,42 +1,33 @@
 struct BrowserHistory {
-  arr : Vec<String>,
-  cur : usize
+  arr: Vec<String>,
+  cur: usize,
 }
 
-/** 
+/**
 * `&self` means the method takes an immutable reference.
 * If you need a mutable reference, change it to `&mut self` instead.
 */
 impl BrowserHistory {
-
   fn new(homepage: String) -> Self {
-      Self {
-          arr : vec![homepage],
-          cur : 0
-      }
+    Self {
+      arr: vec![homepage],
+      cur: 0,
+    }
   }
-  
+
   fn visit(&mut self, url: String) {
-      self.cur += 1;
-      self.arr.truncate(self.cur);
-      self.arr.push(url)
+    self.cur += 1;
+    self.arr.truncate(self.cur);
+    self.arr.push(url)
   }
-  
+
   fn back(&mut self, steps: i32) -> String {
-      self.cur = self.cur.saturating_sub(steps as usize);
-      self.arr[self.cur].clone()
+    self.cur = self.cur.saturating_sub(steps as usize);
+    self.arr[self.cur].clone()
   }
-  
+
   fn forward(&mut self, steps: i32) -> String {
-      self.cur = (self.arr.len() - 1).min(self.cur + steps as usize);
-      self.arr[self.cur].clone()
+    self.cur = (self.arr.len() - 1).min(self.cur + steps as usize);
+    self.arr[self.cur].clone()
   }
 }
-
-/**
-* Your BrowserHistory object will be instantiated and called as such:
-* let obj = BrowserHistory::new(homepage);
-* obj.visit(url);
-* let ret_2: String = obj.back(steps);
-* let ret_3: String = obj.forward(steps);
-*/
